@@ -69,7 +69,7 @@ include_once("../_header.php");
                 </div>
                 <div class="form-group">
                     <label for="obat">Obat</label>
-                    <select multiple name="obat[]" id="obat" class="form-control">
+                    <select multiple name="obat[]" id="obat" class="form-control" size="10">
                         <?php 
                         $sql_obat = mysqli_query($con, "SELECT * FROM tb_obat ORDER BY nama_obat ASC")or die(mysqli_error($con));
                         while($data_obat = mysqli_fetch_array($sql_obat)){
@@ -90,6 +90,13 @@ include_once("../_header.php");
         </div>
     </div>
 <!--START TAMBAH DATA -->
+<script>
+    CKEDITOR.replace('keluhan',{
+        uiColor: '#FF924E',
+        removeButtons: 'Undo,Redo,Image, Table,Source,Format,Styles'
+    });
+    // CKEDITOR.replace('diagnosa');
+</script>
 <?php 
 include_once("../_footer.php");
  ?>

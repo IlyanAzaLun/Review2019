@@ -34,6 +34,9 @@
     <!-- Tabels Data Set -->
     <script src="<?=base_url('_assets/libs/DataTables/datatables.min.js')?>"></script>
     <!-- Tabels Data Set -->
+    <!-- CKEditor -->
+    <script src="<?=base_url('_assets/libs/vendor/ckeditor/ckeditor/ckeditor.js')?>"></script>
+    <!-- CKEditor -->
 </head>
 <body>
 	<div id="wrapper">

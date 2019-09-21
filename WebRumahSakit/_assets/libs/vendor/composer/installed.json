@@ -1,5 +1,48 @@
 [
     {
+        "name": "ckeditor/ckeditor",
+        "version": "4.12.1",
+        "version_normalized": "4.12.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/ckeditor/ckeditor-releases.git",
+            "reference": "b1a25e93ae0b038f45dcba458f4c2c18bd7318e5"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/ckeditor/ckeditor-releases/zipball/b1a25e93ae0b038f45dcba458f4c2c18bd7318e5",
+            "reference": "b1a25e93ae0b038f45dcba458f4c2c18bd7318e5",
+            "shasum": ""
+        },
+        "time": "2019-06-28T10:41:23+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "GPL-2.0+",
+            "LGPL-2.1+",
+            "MPL-1.1+"
+        ],
+        "authors": [
+            {
+                "name": "CKSource",
+                "homepage": "http://cksource.com"
+            }
+        ],
+        "description": "JavaScript WYSIWYG web text editor.",
+        "homepage": "http://ckeditor.com",
+        "keywords": [
+            "CKEditor",
+            "editor",
+            "fckeditor",
+            "html",
+            "javascript",
+            "richtext",
+            "text",
+            "wysiwyg"
+        ]
+    },
+    {
         "name": "paragonie/random_compat",
         "version": "v9.99.99",
         "version_normalized": "9.99.99.0",
