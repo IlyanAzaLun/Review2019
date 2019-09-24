@@ -23,6 +23,7 @@ if (@$_GET['act'] == '') {
 					<th>Harga Barang</th>
 					<th>Stok Barang</th>
 					<th>Gambar Barang</th>
+					<th>Tanggal Publish</th>
 					<th>Opsi</th>
 				</tr>
 			</thead>
@@ -37,16 +38,19 @@ if (@$_GET['act'] == '') {
 					<td><?=$data->nama_brg;?></td>
 					<td><?=number_format($data->harga_brg, 2,",",".")?></td>
 					<td><?=$data->stok_brg;?></td>
+					<td><?=date('d F Y', strtotime($data->tgl_publish));?></td>
 					<td align="center">
-						<a href="" data-toggle="modal" data-target="#viewGambar">
+						<a href="" data-toggle="modal" data-target="#viewGambar" data-nama="<?=$data->nama_brg?>" data-gambar="<?=$data->gbr_brg?>" id="picture">
 							<img src="<?='assets/img/barang/'.$data->gbr_brg;?>" alt="" width="35px">
 						</a>
 					</td>
 					<td align="center">
-						<a href="" id="edit_brg" data-toggle="modal" data-target="#edit" data-id="<?=$data->id_brg?>" data-nama="<?=$data->nama_brg?>"data-harga="<?=$data->harga_brg?>" data-stok="<?=$data->stok_brg?>" data-gambar="<?=$data->gbr_brg?>">
+						<a href="" id="edit_brg" data-toggle="modal" data-target="#edit" data-id="<?=$data->id_brg?>" data-nama="<?=$data->nama_brg?>" data-harga="<?=$data->harga_brg?>" data-stok="<?=$data->stok_brg?>" data-gambar="<?=$data->gbr_brg?>">
 						<button class="btn btn-warning btn-xs"><i class="fa fa-edit"></i> Edit</button></a>
 						<a href="?page=barang&act=del&id=<?=$data->id_brg;?>" onclick="return confirm('Yakin akan menghapus data ini.?')">
 						<button class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Hapus</button></a>
+						<a href="./report/cetak.php?id=<?=$data->id_brg?>" target="_blank">
+						<button class="btn btn-default btn-xs"><i class="fa fa-print"></i> Cetak</button></a>
 					</td>
 				</tr>
 					<?
@@ -56,12 +60,9 @@ if (@$_GET['act'] == '') {
 		</table>
 	</div>
 	<button class="btn btn-success btn-xs" data-toggle="modal" data-target="#tambah"><i class="fa fa-plus"></i> Tambah Data</button>
-	<a href="./report/report_exel_barang.php" target="_blank">
-		<button class="btn btn-default btn-xs" ><i class="fa fa-print"></i> Export Excel</button>
-	</a>
-	<a href="./report/cetak.php" target="_blank">
-		<button class="btn btn-default btn-xs"><i class="fa fa-file-text-o"></i> Cetak PDF</button>
-	</a>
+	<a href="./report/report_exel_barang.php" target="_blank"><button class="btn btn-default btn-xs" ><i class="fa fa-print"></i> Export Excel</button></a>
+
+	<button class="btn btn-default btn-xs" data-toggle="modal" data-target="#cetakPdf"><i class="fa fa-file-text-o"></i> Cetak  Pdf</button>
 	
 	<div id="tambah" class="modal fade" role="dialog">
 		<div class="modal-dialog">
@@ -155,18 +156,69 @@ if (@$_GET['act'] == '') {
 		</div>
 	</div><!-- Edit -->
 	
+	<div id="cetakPdf" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Cetak Per Periode</h4>
+				</div>
+				<div class="modal-body">
+					<form action="./report/cetak.php" method="post" target="_blank">
+						<table>
+							<tr>
+								<td>
+									<div class="form-group">Dari tanggal</div>
+								</td>
+								<td align="center" width="5%">
+									<div class="form-group">:</div>
+								</td>
+								<td>
+									<div class="form-group"><input type="date" class="form-control" name="tgl_a" required></div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div class="form-group">Sampai tanggal</div>
+								</td>
+								<td align="center" width="5%">
+									<div class="form-group">:</div>
+								</td>
+								<td>
+									<div class="form-group"><input type="date" class="form-control" name="tgl_b" required></div>
+								</td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td><input type="submit" name="cetak_barang" class="btn btn-primary btn-xs" value="Cetak"></td>
+							</tr>
+						</table>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<a href="./report/cetak.php" target="_blank">
+						<button class="btn btn-default btn-xs"><i class="fa fa-file-text-o"></i> Cetak PDF</button>
+					</a>
+				</div>
+				
+			</div>
+		</div>
+	</div> <!-- Cetak per periode -->
+
 	<div id="viewGambar" class="modal fade" role="dialog">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title"></h4>
+					<h4 class="modal-title name_picture"></h4>
 				</div>
-				<div class="modal-body">
-				Lanjutkan Cetak Data
+				<div id="modal-picture">
+					<div class="form-group" align="center">
+						<img src="" alt="" class="picture" width="500px">
+					</div>
 				</div>
 				<div class="modal-footer">
-					<a href="./report/cetak.php" target="_blank"><button class="btn btn-primary btn-sm">Cetak semua Data</button></a>
 				</div>
 				
 			</div>
@@ -188,6 +240,13 @@ if (@$_GET['act'] == '') {
 			$("#modal-edit #stok_brg").val(stok_brg);
 			$("#modal-edit #pict").attr("src", "assets/img/barang/"+gbr_brg);
 		});
+		$(document).on("click", "#picture", function(){
+			var nama_brg  = $(this).data('nama');
+			var gbr_brg = $(this).data('gambar');
+
+			$(".name_picture").html(nama_brg);
+			$("#modal-picture .picture").attr("src", "assets/img/barang/"+gbr_brg);
+		})
 		
 		$(document).ready(function(e){
 			$("#form").on("submit", (function(e){

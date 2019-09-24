@@ -54,7 +54,7 @@ $connection = new Database($host, $user, $pass, $dbnm);
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-shopping-cart"></i> Barang <b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li><a href="?page=barang">Data Banrang</a></li>
-                <li><a href="#">Grafik</a></li>
+                <li><a href="?page=barang_grafik">Grafik</a></li>
                 <li><a href="#">Report</a></li>
               </ul>
             </li>
@@ -82,6 +82,8 @@ $connection = new Database($host, $user, $pass, $dbnm);
           include('views/dashbord.php');
         }elseif (@$_GET['page'] == 'barang') {
           include('views/barang.php');
+        }elseif (@$_GET['page'] == 'barang_grafik') {
+          include('views/barang_grafik.php');
         }
         ?>
       </div><!-- /#page-wrapper -->

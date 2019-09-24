@@ -43,7 +43,16 @@ $content .= '
 			<th>GambarBarang</th>
 		</tr>';
 		$no = 1;
-		$tampil = $brg->tampil();
+		if (@$_GET['id'] != '') {
+			$tampil = $brg->tampil(@$_GET['id']);
+		}else{
+			if ($_POST['cetak_barang']) {
+				$tampil = $brg->tampil_tgl($_POST['tgl_a'], $_POST['tgl_b']);
+			}else{
+				$tampil = $brg->tampil();
+			}
+		}
+		
 		while($data = $tampil->fetch_object()){
 			$content .= '
 			<tr>
