@@ -1,0 +1,17 @@
+SELECT  tbl_transaksi_pinjam.kod_pinjam AS kd_pinjam,
+		tbl_anggota.nm_anggota AS nm_anggota,
+        tbl_anggota.al_anggota AS al_anggota,
+        tbl_buku.jdl_buku AS jdl_buku,
+        tbl_buku.no_rk_buku AS no_rk_buku,
+        tbl_petugas.nm_petugas AS nm_petugas,
+        tbl_petugas.shift AS shift,
+        tbl_petugas.tl_petugas AS tl_petugas,
+        tbl_transaksi_pinjam.tgl_pinjam AS tgl_pinjam,
+        tbl_transaksi_pinjam.tgl_kembali AS tgl_hrs_kembali,
+        tbl_transaksi_kembali.tgl_kembali AS tgl_kembali,
+        tbl_transaksi_kembali.tot_denda AS denda FROM
+        ((((tbl_transaksi_pinjam 
+          INNER JOIN tbl_anggota ON tbl_transaksi_pinjam.id_anggota = tbl_anggota.id_anggota)
+          INNER JOIN tbl_buku ON tbl_transaksi_pinjam.id_buku = tbl_buku.id_buku)
+          INNER JOIN tbl_petugas ON tbl_transaksi_pinjam.id_petugas = tbl_petugas.id_petugas)
+      	  INNER JOIN tbl_transaksi_kembali ON tbl_transaksi_pinjam.kod_pinjam = tbl_transaksi_kembali.kod_pinjam);

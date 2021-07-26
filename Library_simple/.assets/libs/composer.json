@@ -1,0 +1,7 @@
+{
+    "require": {
+	"ckeditor/ckeditor": "^4.12.1",
+        "ramsey/uuid": "^3.8",
+        "phpoffice/phpexcel": "^1.8"
+    }
+}
